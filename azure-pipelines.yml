@@ -5,9 +5,10 @@ name: Teste do Senhor Rodrigo
 # Add steps that analyze code, save the dist with the build record, publish to a PyPI-compatible index, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/python
 
-variables:
-- name: comida
-  value: arroz
+variables:      # pipeline-level
+  comida: 'arroz e feijao'
+  drink: 'cafe'
+
 
 
 trigger:
