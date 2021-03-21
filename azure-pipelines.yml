@@ -1,7 +1,14 @@
+
+name: Teste do Senhor Rodrigo
 # Python package
 # Create and test a Python package on multiple Python versions.
 # Add steps that analyze code, save the dist with the build record, publish to a PyPI-compatible index, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/python
+
+variables:
+- name: comida
+  value: arroz
+
 
 trigger:
 - master
@@ -20,6 +27,7 @@ strategy:
     # python.version: '3.7'
 
 steps:
+- script: echo "comida boa eh' $(arroz)
 - task: UsePythonVersion@0
   inputs:
     versionSpec: '$(python.version)'
