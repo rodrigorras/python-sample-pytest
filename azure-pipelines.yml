@@ -6,7 +6,7 @@ name: Teste do Senhor Rodrigo
 # https://docs.microsoft.com/azure/devops/pipelines/languages/python
 
 variables:      # pipeline-level
-  comida: 'arroz e feijao'
+  comida: 'arroz'
   drink: 'cafe'
 
 
@@ -24,11 +24,11 @@ strategy:
       python.version: '3.5'
     Python36:
       python.version: '3.6'
-    #Python37:
-    # python.version: '3.7'
+    Python37:
+      python.version: '3.7'
 
 steps:
-- script: echo "comida boa:'  $(arroz)
+- script: echo 'comida boa:'  $(comida)
 - task: UsePythonVersion@0
   inputs:
     versionSpec: '$(python.version)'
