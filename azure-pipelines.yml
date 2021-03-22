@@ -1,5 +1,5 @@
 
-name: Teste do Senhor Rodrigo
+name: test pipeline
 # Python package
 # Create and test a Python package on multiple Python versions.
 # Add steps that analyze code, save the dist with the build record, publish to a PyPI-compatible index, and more:
@@ -8,7 +8,6 @@ name: Teste do Senhor Rodrigo
 variables:      # pipeline-level
   comida: 'arroz'
   drink: 'cafe'
-
 
 
 trigger:
@@ -28,7 +27,7 @@ strategy:
       #python.version: '3.7'
 
 steps:
-- script: echo 'comida boa:'  $(comida)
+- script: echo 'comida boa e bebida boa :'  $(comida) e $(drink)
 - task: UsePythonVersion@0
   inputs:
     versionSpec: '$(python.version)'
