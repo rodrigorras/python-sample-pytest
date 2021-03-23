@@ -28,6 +28,12 @@ strategy:
 
 steps:
 - script: echo 'comida boa e bebida boa :'  $(comida) e $(drink)
+- task: PythonScript@0
+  inputs:
+    scriptSource: 'inline'
+    script: |
+      print('Hello world 1')
+      print('Hello world 2')
 - task: UsePythonVersion@0
   inputs:
     versionSpec: '$(python.version)'
