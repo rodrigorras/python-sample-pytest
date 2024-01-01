@@ -6,7 +6,7 @@ name: test pipeline
 # https://docs.microsoft.com/azure/devops/pipelines/languages/python
 
 variables:      # pipeline-level
-  comida: 'arroz'
+  food: 'bread'
   drink: 'cafe'
 
 
@@ -27,7 +27,7 @@ strategy:
       #python.version: '3.7'
 
 steps:
-- script: echo 'comida boa e bebida boa :'  $(comida) e $(drink)
+- script: echo 'Good food and Good drink :'  $(food) e $(drink)
 - task: PythonScript@0
   inputs:
     scriptSource: 'inline'
