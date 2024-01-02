@@ -1,7 +1,4 @@
-
 name: Build pipeline
-# Build Pipeline 
-# Docker Build the app code using Azure Devops Resoures
 
 trigger:
 - main
@@ -9,9 +6,16 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-- task: Docker@2
-  inputs:
-    containerRegistry: 'connection to DevHarbor Container Registry'
-    repository: 'nqcc'
-    command: 'buildAndPush'
-    Dockerfile: '**/Dockerfile'
+stages:
+- stage: Build
+  displayName: Build image
+  jobs:
+  - job: Build
+    displayName: Build
+    steps:
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'connection to DevHarbor Container Registry'
+        repository: 'nqcc'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
