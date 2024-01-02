@@ -9,20 +9,9 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-variables:
-  - group: 'nqcc-vars'
-
-
-steps:
 - task: Docker@2
-  displayName: Build and push Docker image
   inputs:
-    command: buildAndPush
-    repository: 20.75.136.5/nqcc/pythonimage
-    dockerfile: $(Build.SourcesDirectory)/Dockerfile
-    containerRegistry: http://20.75.136.5:80
-    tags: |
-      $(Build.BuildId)
-      latest
-  env:
-    DOCKER_CLI_EXPERIMENTAL: enabled
+    containerRegistry: 'connection to DevHarbor Container Registry'
+    repository: 'nqcc'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
