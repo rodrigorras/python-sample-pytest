@@ -20,7 +20,7 @@ steps:
     command: buildAndPush
     repository: 20.75.136.5/nqcc/pythonimage
     dockerfile: $(Build.SourcesDirectory)/Dockerfile
-    containerRegistry: 20.75.136.5:5000
+    containerRegistry: http://20.75.136.5:80
     tags: |
       $(Build.BuildId)
       latest
