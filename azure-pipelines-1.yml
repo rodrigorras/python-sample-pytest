@@ -34,3 +34,5 @@ stages:
         containerRegistry: 'connection to DevHarbor Container Registry'
         repository: 'nqcc'
         command: 'push'
+        tags: |
+          $(tag)
