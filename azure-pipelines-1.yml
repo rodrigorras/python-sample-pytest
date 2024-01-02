@@ -28,8 +28,9 @@ stages:
         tags: |
           $(tag)
 
-          - task: Docker@2
-            inputs:
-              containerRegistry: 'connection to DevHarbor Container Registry'
-              repository: 'nqcc'
-              command: 'push'
+    - task: Docker@2
+      displayName: Push the Built Image
+      inputs:
+        containerRegistry: 'connection to DevHarbor Container Registry'
+        repository: 'nqcc'
+        command: 'push'
