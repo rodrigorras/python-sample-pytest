@@ -1,47 +1,28 @@
 
-name: test pipeline
-# Python package
-# Create and test a Python package on multiple Python versions.
-# Add steps that analyze code, save the dist with the build record, publish to a PyPI-compatible index, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/python
-
-variables:      # pipeline-level
-  food: 'bread'
-  drink: 'cafe'
-
+name: Build pipeline
+# Build Pipeline 
+# Docker Build the app code using Azure Devops Resoures
 
 trigger:
-- master
+- main
 
 pool:
   vmImage: 'ubuntu-latest'
-strategy:
-  matrix:
-    Python38:
-      python.version: '3.8'
-    Python39:
-      python.version: '3.9'
-    Python310:
-      python.version: '3.10'
+
+variables:
+  - group: 'my-variable-group'
+
+
 steps:
-- script: echo 'Good food and Good drink :'  $(food) e $(drink)
-- task: PythonScript@0
+- task: Docker@2
+  displayName: Build and push Docker image
   inputs:
-    scriptSource: 'inline'
-    script: |
-      print('Hello world 1')
-      print('Hello world 2')
-- task: UsePythonVersion@0
-  inputs:
-    versionSpec: '$(python.version)'
-  displayName: 'Use Python $(python.version)'
-
-- script: |
-    python -m pip install --upgrade pip
-    pip install -r requirements.txt
-  displayName: 'Install dependencies'
-
-- script: |
-    pip install pytest pytest-azurepipelines
-    pytest
-  displayName: 'pytest'
+    command: buildAndPush
+    repository: 20.75.136.5/nqcc/pythonimage
+    dockerfile: $(Build.SourcesDirectory)/Dockerfile
+    containerRegistry: 20.75.136.5:5000
+    tags: |
+      $(Build.BuildId)
+      latest
+  env:
+    DOCKER_CLI_EXPERIMENTAL: enabled
