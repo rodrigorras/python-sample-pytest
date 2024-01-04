@@ -16,7 +16,9 @@ variables:
 
 
 steps:
+
 - task: Bash@3
+  name: 'Docker_login_Harbor'
   inputs:
     targetType: 'inline'
     script: |
@@ -31,15 +33,17 @@ steps:
 
 
 - task: Bash@3
+  name: 'Docker_build' 
   inputs:
     targetType: 'inline'
     script: |
       # Write your commands here
-      docker build --image $(imageName):$(BuildId) --registry $(registryName) --file Dockerfile .
+      docker build -t $(registryName)/nqcc:$(BuildID) .
       docker images  
+      echo 'Build Success!'
     #workingDirectory: '$(Build.SourcesDirectory)/AppA.WebApi'
 
 
-      
+  
      
   
