@@ -48,6 +48,19 @@ steps:
       docker images  
       echo 'Build Success!'
     #workingDirectory: '$(Build.SourcesDirectory)/AppA.WebApi'
+  displayName: 'Build docker Image in the Worker'
+
+- task: Bash@3
+  name: 'Docker_push' 
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your commands here
+      docker push  $(registryName)/nqcc/$(second_half):$(BuildID) .
+      docker images  
+      echo 'Build Success!'
+  displayName: 'Update Docker Image in the remote Registry'
+    
 
 
   
