@@ -10,9 +10,9 @@ pool:
 variables:
   HELM_EXPERIMENTAL_OCI: 1
   registryName: '40.76.167.146'
-  imageName: 'flask-python'
   BuildId: '$(Build.BuildId)'
   tag: '$(Build.BuildId)'
+  reponame: '$(Build.Repository.Name)'
 
 
 steps:
@@ -38,7 +38,7 @@ steps:
     targetType: 'inline'
     script: |
       # Write your commands here
-      docker build -t $(registryName)/nqcc:$(BuildID) .
+      docker build -t $(registryName)/nqcc/$(reponame):$(BuildID) .
       docker images  
       echo 'Build Success!'
     #workingDirectory: '$(Build.SourcesDirectory)/AppA.WebApi'
