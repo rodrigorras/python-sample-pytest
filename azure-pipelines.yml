@@ -3,66 +3,70 @@ name: Build pipeline
 trigger:
 - main
 
-pool:
-  vmImage: 'ubuntu-latest'
 
- 
-variables:
-  HELM_EXPERIMENTAL_OCI: 1
-  registryName: '40.76.167.146'
-  BuildId: '$(Build.BuildId)'
-  tag: '$(Build.BuildId)'
-  reponame: '$(Build.Repository.Name)'
+jobs:
+- job: 
+  displayName: "CI Job"
+  pool:
+    vmImage: 'ubuntu-latest'
+
+  
+  variables:
+    HELM_EXPERIMENTAL_OCI: 1
+    registryName: '40.76.167.146'
+    BuildId: '$(Build.BuildId)'
+    tag: '$(Build.BuildId)'
+    reponame: '$(Build.Repository.Name)'
 
 
-steps:
+  steps:
 
-- task: Bash@3
-  name: 'Docker_login_Harbor'
-  inputs:
-    targetType: 'inline'
-    script: |
-      # Write your commands here
-      cat /etc/docker/daemon.json
-      echo '{ "exec-opts": ["native.cgroupdriver=cgroupfs"], "insecure-registries": ["0.0.0.0/0"] }' | sudo tee /etc/docker/daemon.json
-      echo "restart docker..."
-      cat /etc/docker/daemon.json
-      sudo systemctl daemon-reload
-      sudo systemctl restart docker
-      docker login 40.76.167.146:80 -u admin -p  $(harbor-passwd)
+  - task: Bash@3
+    name: 'Docker_login_Harbor'
+    inputs:
+      targetType: 'inline'
+      script: |
+        # Write your commands here
+        cat /etc/docker/daemon.json
+        echo '{ "exec-opts": ["native.cgroupdriver=cgroupfs"], "insecure-registries": ["0.0.0.0/0"] }' | sudo tee /etc/docker/daemon.json
+        echo "restart docker..."
+        cat /etc/docker/daemon.json
+        sudo systemctl daemon-reload
+        sudo systemctl restart docker
+        docker login 40.76.167.146:80 -u admin -p  $(harbor-passwd)
 
-- script: |
-    full_name=$(reponame)
-    IFS='/' read -ra parts <<< "$full_name"
-    second_half=${parts[1]}
-    echo "##vso[task.setvariable variable=second_half]$second_half"
-  displayName: 'Set Second Half as Environment Variable'
+  - script: |
+      full_name=$(reponame)
+      IFS='/' read -ra parts <<< "$full_name"
+      second_half=${parts[1]}
+      echo "##vso[task.setvariable variable=second_half]$second_half"
+    displayName: 'Set Second Half as Environment Variable'
 
-- task: Bash@3
-  name: 'Docker_build' 
-  inputs:
-    targetType: 'inline'
-    script: |
-      # Write your commands here
-      docker build -t $(registryName)/nqcc/$(second_half):$(BuildID) .
-      docker images  
-      echo 'Build Success!'
-    #workingDirectory: '$(Build.SourcesDirectory)/AppA.WebApi'
-  displayName: 'Build docker Image in the Worker'
+  - task: Bash@3
+    name: 'Docker_build' 
+    inputs:
+      targetType: 'inline'
+      script: |
+        # Write your commands here
+        docker build -t $(registryName)/nqcc/$(second_half):$(BuildID) .
+        docker images  
+        echo 'Build Success!'
+      #workingDirectory: '$(Build.SourcesDirectory)/AppA.WebApi'
+    displayName: 'Build docker Image in the Worker'
 
-- task: Bash@3
-  name: 'Docker_push' 
-  inputs:
-    targetType: 'inline'
-    script: |
-      # Write your commands here
-      docker push  $(registryName)/nqcc/$(second_half):$(BuildID) 
-      docker images  
-      echo 'Build Success!'
-  displayName: 'Update Docker Image in the remote Registry'
+  - task: Bash@3
+    name: 'Docker_push' 
+    inputs:
+      targetType: 'inline'
+      script: |
+        # Write your commands here
+        docker push  $(registryName)/nqcc/$(second_half):$(BuildID) 
+        docker images  
+        echo 'Build Success!'
+    displayName: 'Update Docker Image in the remote Registry'
+      
+
+
     
-
-
-  
-     
-  
+      
+    
