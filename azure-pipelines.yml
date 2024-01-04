@@ -13,9 +13,13 @@ steps:
     targetType: 'inline'
     script: |
       # Write your commands here
-      
-      ls /etc/docker
+      cat /etc/docker/daemon.json
+      echo "restart docker..."
+      sudo systemctl daemon-reload
+      sudo systemctl restart docker
       docker login  http://40.76.167.146:80 -u admin -p  Harbor12345
+
+
 
 
       
