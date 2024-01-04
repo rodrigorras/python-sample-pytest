@@ -7,6 +7,13 @@ pool:
   vmImage: 'ubuntu-latest'
 
  
+variables:
+  HELM_EXPERIMENTAL_OCI: 1
+  registryName: '40.76.167.146'
+  imageName: 'flask-python'
+  BuildId: '$(Build.BuildId)'
+  tag: '$(Build.BuildId)'
+
 steps:
 - task: Bash@3
   inputs:
@@ -19,9 +26,17 @@ steps:
       cat /etc/docker/daemon.json
       sudo systemctl daemon-reload
       sudo systemctl restart docker
-      docker login 40.76.167.146:80 -u admin -p  Harbor12345
+      docker login 40.76.167.146:80 -u admin -p  $(harbor-password)
 
 
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your commands here
+      docker build --image $(imageName):$(BuildId) --registry $(registryName) --file Dockerfile .
+      docker images  
+    #workingDirectory: '$(Build.SourcesDirectory)/AppA.WebApi'
 
 
       
