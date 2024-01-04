@@ -14,6 +14,7 @@ variables:
   BuildId: '$(Build.BuildId)'
   tag: '$(Build.BuildId)'
 
+
 steps:
 - task: Bash@3
   inputs:
@@ -26,7 +27,7 @@ steps:
       cat /etc/docker/daemon.json
       sudo systemctl daemon-reload
       sudo systemctl restart docker
-      docker login 40.76.167.146:80 -u admin -p  $(harbor-password)
+      docker login 40.76.167.146:80 -u admin -p  $(harbor-passwd)
 
 
 - task: Bash@3
