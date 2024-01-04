@@ -38,8 +38,8 @@ steps:
     targetType: 'inline'
     script: |
       # Write your commands here
-      second_half_name=$(echo $(reponame) | cut -d'/' -f2)
-      docker build -t $(registryName)/nqcc/$(second_half_name):$(BuildID) .
+      second_half_name=$(echo $reponame | cut -d'/' -f2)
+      docker build -t $(registryName)/nqcc/$second_half_name:$(BuildID) .
       docker images  
       echo 'Build Success!'
     #workingDirectory: '$(Build.SourcesDirectory)/AppA.WebApi'
