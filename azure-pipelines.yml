@@ -29,7 +29,7 @@ steps:
     azureSubscription: 'azure-dev-subscription'
     scriptType: 'bash'
     scriptLocation: 'inlineScript'
-    inlineScript: 'docker login  40.76.167.146:80 -u admin -p Harbor12345
+    inlineScript: 'docker login  40.76.167.146:80 -u admin -p Harbor12345'
 
       
      
