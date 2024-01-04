@@ -31,6 +31,12 @@ steps:
       sudo systemctl restart docker
       docker login 40.76.167.146:80 -u admin -p  $(harbor-passwd)
 
+- script: |
+    full_name=$(reponame)
+    IFS='/' read -ra parts <<< "$full_name"
+    second_half=${parts[1]}
+    echo "##vso[task.setvariable variable=second_half]$second_half"
+  displayName: 'Set Second Half as Environment Variable'
 
 - task: Bash@3
   name: 'Docker_build' 
@@ -38,8 +44,7 @@ steps:
     targetType: 'inline'
     script: |
       # Write your commands here
-      second_half_name=$(echo $reponame | cut -d'/' -f2)
-      docker build -t $(registryName)/nqcc/$second_half_name:$(BuildID) .
+      docker build -t $(registryName)/nqcc/$(second_half):$(BuildID) .
       docker images  
       echo 'Build Success!'
     #workingDirectory: '$(Build.SourcesDirectory)/AppA.WebApi'
