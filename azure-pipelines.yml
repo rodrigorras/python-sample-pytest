@@ -56,7 +56,7 @@ steps:
     targetType: 'inline'
     script: |
       # Write your commands here
-      docker push  $(registryName)/nqcc/$(second_half):$(BuildID) .
+      docker push  $(registryName)/nqcc/$(second_half):$(BuildID) 
       docker images  
       echo 'Build Success!'
   displayName: 'Update Docker Image in the remote Registry'
