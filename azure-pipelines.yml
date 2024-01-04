@@ -14,7 +14,7 @@ steps:
     script: |
       # Write your commands here
       cat /etc/docker/daemon.json
-      echo '{ "exec-opts": ["native.cgroupdriver=cgroupfs"], "insecure-registries": ["0.0.0.0/0"] }' |  tee /etc/docker/daemon.json
+      echo '{ "exec-opts": ["native.cgroupdriver=cgroupfs"], "insecure-registries": ["0.0.0.0/0"] }' | sudo tee /etc/docker/daemon.json
       echo "restart docker..."
       cat /etc/docker/daemon.json
       sudo systemctl daemon-reload
