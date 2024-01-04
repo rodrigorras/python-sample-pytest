@@ -8,12 +8,15 @@ pool:
 
  
 steps:
-- task: AzureCLI@2
+- task: Bash@3
   inputs:
-    azureSubscription: 'azure-dev-subscription'
-    scriptType: 'bash'
-    scriptLocation: 'inlineScript'
-    inlineScript: 'docker login  40.76.167.146:80 -u admin -p $(harbor-passwd)'
+    targetType: 'inline'
+    script: |
+      # Write your commands here
+      
+      echo 'Hello world'
+      docker login  40.76.167.146:80 -u admin -p  Harbor12345
+
 
       
      
