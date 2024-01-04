@@ -6,22 +6,6 @@ trigger:
 pool:
   vmImage: 'ubuntu-latest'
 
-variables: 
-  registry_password: $(registry_password)
-
-# stages:
-# - stage: Build
-#   displayName: Build image
-#   jobs:
-#   - job: Build
-#     displayName: Build
-#     steps:
-#     - task: Docker@2
-#       inputs:
-#         containerRegistry: 'connection to DevHarbor Container Registry'
-#         repository: 'nqcc'
-#         command: 'buildAndPush'
-#         Dockerfile: '**/Dockerfile'
  
 steps:
 - task: AzureCLI@2
