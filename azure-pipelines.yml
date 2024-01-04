@@ -14,8 +14,8 @@ steps:
     script: |
       # Write your commands here
       
-      echo 'Hello world'
-      docker login  40.76.167.146:80 -u admin -p  Harbor12345
+      ls /etc/docker
+      docker login  http://40.76.167.146:80 -u admin -p  Harbor12345
 
 
       
