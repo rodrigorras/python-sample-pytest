@@ -6,7 +6,7 @@ trigger:
 
 jobs:
 - job: 
-  displayName: "CI Job"
+  displayName: "CI Pipeline"
   pool:
     vmImage: 'ubuntu-latest'
 
@@ -64,9 +64,47 @@ jobs:
         docker images  
         echo 'Build Success!'
     displayName: 'Update Docker Image in the remote Registry'
-      
 
 
-    
+- job: 
+  displayName: "CI Pipeline"
+  pool:
+    vmImage: 'ubuntu-latest'
       
-    
+
+  steps:
+
+    - task: Bash@3
+      displayName: 'Update Helm Chart '
+      inputs:
+        targetType: 'inline'
+        script: |
+            apt-get update -y && apt-get install openssh-client git -y 
+            mkdir -p ˜/.ssh
+            echo "$SSH_PRIVATE_KEY" > /root/.ssh/id_rsa
+            chmod 600 /root/.ssh/id_rsa
+            ssh-keyscan -H gitlab.com >> ~/.ssh/known_hosts
+            chmod 644 ~/.ssh/known_hosts
+            eval $(ssh-agent -s)
+            echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -  
+            git config --global user.email "gitlab-ci@gmail.com"
+            git config --global user.name "gitlab-ci"
+            git clone git@gitlab.com:container-solutions/nqcc-helmcharts.git
+            cd manifest-repo
+            ls -latr
+    - task: Bash@3
+      displayName: 'Update Helm Chart '
+      inputs:
+          targetType: 'inline'
+          script: |
+              # Update Image TAG
+              - sed -i "s/login_demo:.*/login_demo:${CI_COMMIT_SHORT_SHA}/g" test-login-app/values.yaml
+              - git add test-login-app/values.yaml
+              - git commit -am "Update Image"
+              - git push
+
+
+
+
+
+      
