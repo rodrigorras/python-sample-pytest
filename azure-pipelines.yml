@@ -48,8 +48,8 @@ jobs:
       targetType: 'inline'
       script: |
         # Write your commands here
-        echo "docker push"  $(registryName)/nqcc/$(second_half):$(BuildID) 
-        docker build -t $(registryName)/nqcc/$(second_half):$(BuildID) .
+        echo "docker push"  $(registryName)/nqcc/$(second_half):$(BuildId) 
+        docker build -t $(registryName)/nqcc/$(second_half):$(BuildId) .
         docker images  
         echo 'Build Success!'
       #workingDirectory: '$(Build.SourcesDirectory)/AppA.WebApi'
@@ -64,15 +64,15 @@ jobs:
         # echo "Logging again to mitigate issue"
         #docker logout http://40.76.167.146:80
         # docker login http://40.76.167.146:80 -u admin -p  $(harbor-passwd)
-        # echo "docker push"  $(registryName)/nqcc/$(second_half):$(BuildID) 
-        docker push  $(registryName)/nqcc/$(second_half):$(BuildID)
+        # echo "docker push"  $(registryName)/nqcc/$(second_half):$(BuildId) 
+        docker push  $(registryName)/nqcc/$(second_half):$(BuildId)
        # docker images  
        # echo 'Build Success!'
     displayName: 'Update Docker Image in the remote Registry'
 
 
 - job: CD
-  displayName: "CI Pipeline"
+  displayName: "CD Pipeline"
   pool:
     vmImage: 'ubuntu-latest'
   dependsOn: CI
