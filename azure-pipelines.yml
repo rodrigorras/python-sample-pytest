@@ -61,8 +61,8 @@ jobs:
       targetType: 'inline'
       script: |
         # Write your commands here
-        # cat /etc/docker/daemon.json
-        # cat ~/.docker/daemon.json 
+        cat /etc/docker/daemon.json
+        cat ~/.docker/daemon.json 
         # echo "Logging again to mitigate issue"
         #docker logout http://40.76.167.146:80
         # docker login http://40.76.167.146:80 -u admin -p  $(harbor-passwd)
