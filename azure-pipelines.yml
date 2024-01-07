@@ -28,7 +28,7 @@ jobs:
       script: |
         # Write your commands here
         cat /etc/docker/daemon.json
-        echo '{ "exec-opts": ["native.cgroupdriver=cgroupfs"], "insecure-registries": ["0.0.0.0/0"] }' | sudo tee /etc/docker/daemon.json
+        echo '{ "exec-opts": ["native.cgroupdriver=cgroupfs"], "cgroup-parent": "/actions_job", "insecure-registries": ["0.0.0.0/0"] }' | sudo tee /etc/docker/daemon.json
         echo "restart docker..."
         cat /etc/docker/daemon.json
         sudo systemctl daemon-reload
@@ -61,15 +61,15 @@ jobs:
       targetType: 'inline'
       script: |
         # Write your commands here
-         cat /etc/docker/daemon.json
-         cat ~/.docker/daemon.json 
+        # cat /etc/docker/daemon.json
+        # cat ~/.docker/daemon.json 
         # echo "Logging again to mitigate issue"
         #docker logout http://40.76.167.146:80
         # docker login http://40.76.167.146:80 -u admin -p  $(harbor-passwd)
         # echo "docker push"  $(registryName)/nqcc/$(second_half):$(BuildId) 
         docker push  $(registryName)/nqcc/$(second_half):$(BuildId)
-       # docker images  
-       # echo 'Build Success!'
+        # docker images  
+        # echo 'Build Success!'
     displayName: 'Update Docker Image in the remote Registry'
 
 
