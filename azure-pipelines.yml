@@ -81,16 +81,16 @@ jobs:
         script: |
             apt-get update -y && apt-get install openssh-client git -y 
             mkdir -p ˜/.ssh
-            echo "$SSH_PRIVATE_KEY" > /root/.ssh/id_rsa
+            echo "$ssh-private-key" > /root/.ssh/id_rsa
             chmod 600 /root/.ssh/id_rsa
             ssh-keyscan -H gitlab.com >> ~/.ssh/known_hosts
             chmod 644 ~/.ssh/known_hosts
             eval $(ssh-agent -s)
-            echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add -  
-            git config --global user.email "gitlab-ci@gmail.com"
-            git config --global user.name "gitlab-ci"
+            echo "$ssh-private-key" | tr -d '\r' | ssh-add -  
+            git config --global user.email "rodrigo.rras@gmail.com"
+            git config --global user.name "rodrigo.rras"
             git clone git@gitlab.com:container-solutions/nqcc-helmcharts.git
-            cd manifest-repo
+            cd nqcc-app
             ls -latr
     - task: Bash@3
       displayName: 'Update Helm Chart '
@@ -98,8 +98,8 @@ jobs:
           targetType: 'inline'
           script: |
               # Update Image TAG
-              - sed -i "s/login_demo:.*/login_demo:${CI_COMMIT_SHORT_SHA}/g" test-login-app/values.yaml
-              - git add test-login-app/values.yaml
+              - sed -i "s/login_demo:.*/login_demo:$(tag)/g" values.yaml
+              - git add values.yaml
               - git commit -am "Update Image"
               - git push
 
