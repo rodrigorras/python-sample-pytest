@@ -48,6 +48,7 @@ jobs:
       targetType: 'inline'
       script: |
         # Write your commands here
+        echo "docker push"  $(registryName)/nqcc/$(second_half):$(BuildID) 
         docker build -t $(registryName)/nqcc/$(second_half):$(BuildID) .
         docker images  
         echo 'Build Success!'
@@ -60,6 +61,7 @@ jobs:
       targetType: 'inline'
       script: |
         # Write your commands here
+        echo "docker push"  $(registryName)/nqcc/$(second_half):$(BuildID) 
         docker push  $(registryName)/nqcc/$(second_half):$(BuildID) 
         docker images  
         echo 'Build Success!'
