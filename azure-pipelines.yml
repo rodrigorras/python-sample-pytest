@@ -5,7 +5,7 @@ trigger:
 
 
 jobs:
-- job: 
+- job: CI
   displayName: "CI Pipeline"
   pool:
     vmImage: 'ubuntu-latest'
@@ -62,7 +62,8 @@ jobs:
       script: |
         # Write your commands here
         echo "Logging again to mitigate issue"
-        docker login 40.76.167.146:80
+        docker logout 
+        docker login 40.76.167.146:80 -u admin -p Harbor12345
         echo "docker push"  $(registryName)/nqcc/$(second_half):$(BuildID) 
         docker push  $(registryName)/nqcc/$(second_half):$(BuildID) 
         docker images  
@@ -70,10 +71,11 @@ jobs:
     displayName: 'Update Docker Image in the remote Registry'
 
 
-- job: 
+- job: CD
   displayName: "CI Pipeline"
   pool:
     vmImage: 'ubuntu-latest'
+  dependsOn: CI
       
 
   steps:
