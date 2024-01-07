@@ -33,7 +33,7 @@ jobs:
         cat /etc/docker/daemon.json
         sudo systemctl daemon-reload
         sudo systemctl restart docker
-        docker login 40.76.167.146:80 -u admin -p  $(harbor-passwd)
+        docker login http://40.76.167.146:80 -u admin -p  $(harbor-passwd)
 
   - script: |
       full_name=$(reponame)
@@ -62,8 +62,8 @@ jobs:
       script: |
         # Write your commands here
         echo "Logging again to mitigate issue"
-        docker logout 
-        docker login 40.76.167.146:80 -u admin -p Harbor12345
+        docker logout http://40.76.167.146:80
+        docker login http://40.76.167.146:80 -u admin -p  $(harbor-passwd)
         echo "docker push"  $(registryName)/nqcc/$(second_half):$(BuildID) 
         docker push  $(registryName)/nqcc/$(second_half):$(BuildID) 
         docker images  
