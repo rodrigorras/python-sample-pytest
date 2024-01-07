@@ -61,6 +61,8 @@ jobs:
       targetType: 'inline'
       script: |
         # Write your commands here
+        echo "Logging again to mitigate issue"
+        docker login 40.76.167.146:80
         echo "docker push"  $(registryName)/nqcc/$(second_half):$(BuildID) 
         docker push  $(registryName)/nqcc/$(second_half):$(BuildID) 
         docker images  
