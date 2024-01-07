@@ -65,9 +65,9 @@ jobs:
         #docker logout http://40.76.167.146:80
         # docker login http://40.76.167.146:80 -u admin -p  $(harbor-passwd)
         # echo "docker push"  $(registryName)/nqcc/$(second_half):$(BuildID) 
-        docker push  $(registryName)/nqcc/$(second_half)
-        docker images  
-        echo 'Build Success!'
+        docker push  $(registryName)/nqcc/$(second_half):$(BuildID)
+       # docker images  
+       # echo 'Build Success!'
     displayName: 'Update Docker Image in the remote Registry'
 
 
