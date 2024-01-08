@@ -79,7 +79,6 @@ jobs:
   displayName: "CD Pipeline"
   pool:
     vmImage: 'ubuntu-latest'
-  dependsOn: CI
       
 
   steps:
