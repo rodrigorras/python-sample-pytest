@@ -90,8 +90,8 @@ jobs:
         script: |
             apt-get update -y && apt-get install openssh-client git -y 
             mkdir -p ˜/.ssh
-            echo $ssh-private-key
-            echo "$ssh-private-key" > /root/.ssh/id_rsa
+            echo $(ssh-private-key)
+            echo "$(ssh-private-key)" > /root/.ssh/id_rsa
             chmod 600 /root/.ssh/id_rsa
             ssh-keyscan -H gitlab.com >> ~/.ssh/known_hosts
             chmod 644 ~/.ssh/known_hosts
