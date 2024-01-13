@@ -8,7 +8,7 @@ stages:
 
     steps:
     - script: |
-        echo "##vso[task.setvariable variable=variableFromJob1]ValueFromJob1"
+        echo "##vso[task.setvariable variable=variableFromJob1]$variableFromJob1"
       displayName: 'Set Output Variable'
 
   - job: Job2
@@ -19,5 +19,5 @@ stages:
 
     steps:
     - script: |
-        echo "Variable from Job 1: $(Job1.variableFromJob1)"
+        echo "Variable from Job 1: $(variableFromJob1)"
       displayName: 'Use Output Variable'
